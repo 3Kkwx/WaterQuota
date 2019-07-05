@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.water.quato.mapper.InformationMapper">
+    <!-- insert information -->
+    <!-- <insert id="insert" parameterType="com.example.testDemo.bean.Information" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO information(in_name,in_age,in_address) VALUE(#{inName},#{inAge},#{inAddress});
+    </insert> -->
+    <insert id="insert"  parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+         insert into information (
+            <foreach collection="information1" item="value" index="key" separator=",">
+                ${@com.water.quato.utils.HumpUnderLineTool@HumpToUnderline(key)}
+            </foreach>
+            )
+            values (
+            <foreach collection="information1" item="value" index="key" separator=",">
+                #{value}
+            </foreach>
+            )
+    </insert>
+    <!-- find information -->
+    <select id="find" parameterType="int" resultType="com.water.quato.bean.Information">
+        SELECT id,in_name,in_age,in_address FROM information WHERE ID=#{id}
+    </select>
+    
+    <!-- find Allinformation -->
+    <select id="findAll" parameterType="int" resultType="com.water.quato.bean.Information">
+        SELECT id,in_name,in_age,in_address FROM information 
+    </select>
+</mapper>

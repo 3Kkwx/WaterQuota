@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.water.quato.mapper.userMapper">
+<!--
+    <insert id="insert"  parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+         insert into information (
+            <foreach collection="information1" item="value" index="key" separator=",">
+                ${@com.water.quato.utils.HumpUnderLineTool@HumpToUnderline(key)}
+            </foreach>
+            )
+            values (
+            <foreach collection="information1" item="value" index="key" separator=",">
+                #{value}
+            </foreach>
+            )
+    </insert>
+     -->
+    <!-- 查询是否存在用户 -->
+    <select id="findUser" parameterType="int" resultType="com.water.quato.bean.user">
+        SELECT id,user_name,user_password,user_identity FROM user WHERE user_name=#{userName} AND user_password=#{userPassword} AND user_identity=#{userIdentity} 
+    </select>
+</mapper>
